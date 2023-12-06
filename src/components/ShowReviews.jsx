@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 
+const apiUrl = process.env.REACT_APP_API_URL;
+
 const ShowReviews = ({ isbn }) => {
   const [reviews, setReviews] = useState([]);
   const [reviewer, setReviewer] = useState("");
@@ -20,7 +22,9 @@ const ShowReviews = ({ isbn }) => {
   const fetchReviews = async () => {
     try {
       // Make an API call to fetch books
-      const response = await fetch(`/api/Reviews/${isbn}`);
+      const response = await fetch(
+        `${apiUrl}/Reviews/${isbn}`
+      );
       const data = await response.json();
       setReviews(data);
     } catch (error) {
@@ -33,7 +37,7 @@ const ShowReviews = ({ isbn }) => {
 
     try {
       // Make an API call to create a new book
-      const response = await fetch("/api/Reviews", {
+      const response = await fetch(`${apiUrl}/Reviews`, {
         method: "POST",
         headers: {
           accept: "*/*",
@@ -68,7 +72,7 @@ const ShowReviews = ({ isbn }) => {
   const handleSave = async (reviewId) => {
     try {
       // Make an API call to update the review text
-      await fetch(`/api/Reviews/${reviewId}`, {
+      await fetch(`${apiUrl}/Reviews/${reviewId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -106,10 +110,13 @@ const ShowReviews = ({ isbn }) => {
     e.preventDefault();
 
     try {
-      const response = await fetch(`/api/Reviews/${isbn}/${id}`, {
-        method: "DELETE",
-        headers: { accept: "*/*" },
-      });
+      const response = await fetch(
+        `${apiUrl}/Reviews/${isbn}/${id}`,
+        {
+          method: "DELETE",
+          headers: { accept: "*/*" },
+        }
+      );
       
       if (response.status === 204) {
         // Book deleted successfully

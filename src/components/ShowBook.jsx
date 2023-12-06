@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import ShowReviews from "./ShowReviews";
 
+const apiUrl = process.env.REACT_APP_API_URL;
+
 const ShowBook = ({ isbn }) => {
   const [book, setBook] = useState({});
 
@@ -12,7 +14,7 @@ const ShowBook = ({ isbn }) => {
 
   const fetchBook = async () => {
     try {
-      const response = await fetch(`/api/Books/${isbn}`);
+      const response = await fetch(`${apiUrl}/Books/${isbn}`);
       const data = await response.json();
       setBook(data);
     } catch (error) {
