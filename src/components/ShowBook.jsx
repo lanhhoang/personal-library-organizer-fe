@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import ShowReviews from "./ShowReviews";
 
 const ShowBook = ({ isbn }) => {
   const [book, setBook] = useState({});
@@ -40,6 +41,8 @@ const ShowBook = ({ isbn }) => {
         <strong>Published Date: </strong>
         <span>{book.publishDate}</span>
       </p>
+
+      <ShowReviews isbn={isbn} />
 
       <Link to="/books">Back to Book List</Link>
     </div>
