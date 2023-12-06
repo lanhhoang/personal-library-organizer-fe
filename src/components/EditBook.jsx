@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 
+const apiUrl = process.env.REACT_APP_API_URL;
+
 const EditBook = ({ isbn }) => {
   const history = useHistory();
 
@@ -23,7 +25,7 @@ const EditBook = ({ isbn }) => {
 
   const fetchBook = async () => {
     try {
-      const response = await fetch(`/api/Books/${isbn}`);
+      const response = await fetch(`${apiUrl}/Books/${isbn}`);
       const data = await response.json();
       setBook(data);
     } catch (error) {
@@ -36,7 +38,7 @@ const EditBook = ({ isbn }) => {
 
     try {
       // Make an API call to edit a new book
-      const response = await fetch(`/api/Books/${isbn}`, {
+      const response = await fetch(`${apiUrl}/Books/${isbn}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ isbn, title, author, publishDate }),

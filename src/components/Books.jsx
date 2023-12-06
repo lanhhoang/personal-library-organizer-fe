@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
+const apiUrl = process.env.REACT_APP_API_URL;
+
 const Books = () => {
   const [books, setBooks] = useState([]);
   const [isbn, setIsbn] = useState("");
@@ -13,7 +15,7 @@ const Books = () => {
   const fetchBooks = async () => {
     try {
       // Make an API call to fetch books
-      const response = await fetch("/api/Books");
+      const response = await fetch(`${apiUrl}/Books`);
       const data = await response.json();
       setBooks(data);
     } catch (error) {
@@ -26,7 +28,7 @@ const Books = () => {
 
     try {
       // Make an API call to create a new book
-      const response = await fetch("/api/Books", {
+      const response = await fetch(`${apiUrl}/Books`, {
         method: "POST",
         headers: {
           accept: "*/*",
@@ -38,7 +40,6 @@ const Books = () => {
           author: "TBA",
           publishDate: "TBA",
         }),
-        // body: `${isbn}`,
       });
       const createdBook = await response.json();
       setBooks([...books, createdBook]);
@@ -52,11 +53,11 @@ const Books = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch(`/api/Books/${isbn}`, {
+      const response = await fetch(`${apiUrl}/Books/${isbn}`, {
         method: "DELETE",
         headers: { accept: "*/*" },
       });
-      
+
       if (response.status === 204) {
         // Book deleted successfully
         // Modify the books state by filtering out the deleted book
