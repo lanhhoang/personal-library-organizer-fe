@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import ShowReviews from "./ShowReviews";
+import Reviews from "./Reviews";
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -44,7 +44,7 @@ const ShowBook = ({ isbn }) => {
         <span>{book.publishDate}</span>
       </p>
 
-      <ShowReviews isbn={isbn} />
+      <Reviews isbn={isbn} />
 
       <Link to="/books">Back to Book List</Link>
     </div>

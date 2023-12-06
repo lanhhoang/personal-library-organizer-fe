@@ -4,7 +4,7 @@ import { Switch, Route, Link } from "react-router-dom";
 import "./App.css";
 
 import Home from "./pages/Home";
-import Books from "./pages/Books";
+import Books from "./components/Books";
 import EditBook from "./components/EditBook";
 import ShowBook from "./components/ShowBook";
 

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
-const ShowReviews = ({ isbn }) => {
+const Reviews = ({ isbn }) => {
   const [reviews, setReviews] = useState([]);
   const [reviewer, setReviewer] = useState("");
   const [reviewText, setReviewText] = useState("");
@@ -208,4 +208,4 @@ const ShowReviews = ({ isbn }) => {
   );
 };
 
-export default ShowReviews;
+export default Reviews;
