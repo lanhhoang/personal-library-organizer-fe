@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from "react";
 
+import Button from "react-bootstrap/Button";
+import Col from "react-bootstrap/Col";
+import Form from "react-bootstrap/Form";
+import Row from "react-bootstrap/Row";
+import Table from "react-bootstrap/Table";
+
 const apiUrl = process.env.REACT_APP_API_URL;
 
 const Reviews = ({ isbn }) => {
@@ -138,29 +144,44 @@ const Reviews = ({ isbn }) => {
   }
 
   return (
-    <div>
+    <>
       <h2>Create Review</h2>
-      <form onSubmit={createReview}>
-        <label>
-          <strong>Reviewer: </strong>
-        </label>
-        <input
-          type="text"
-          value={reviewer}
-          onChange={(e) => setReviewer(e.target.value)}
-        />
+      <Form onSubmit={createReview}>
+        <Row className="align-items-center">
+          <Col xs="1">
+            <Form.Label>
+              <strong>Reviewer: </strong>
+            </Form.Label>
+          </Col>
+
+          <Col xs="5">
+            <Form.Control
+              type="text"
+              value={reviewer}
+              onChange={(e) => setReviewer(e.target.value)}
+            />
+          </Col>
+        </Row>
         <br />
-        <label>
-          <strong>Content: </strong>
-        </label>
-        <input
-          type="text"
-          value={reviewText}
-          onChange={(e) => setReviewText(e.target.value)}
-        />
+        <Row className="align-items-center">
+          <Col xs="1">
+            <Form.Label>
+              <strong>Content: </strong>
+            </Form.Label>
+          </Col>
+          <Col xs="5">
+            <Form.Control
+              type="text"
+              value={reviewText}
+              onChange={(e) => setReviewText(e.target.value)}
+            />
+          </Col>
+        </Row>
         <br />
-        <button type="submit">Create</button>
-      </form>
+        <Button type="submit" variant="success">
+          Create
+        </Button>
+      </Form>
 
       <h2>Reviews</h2>
       {reviews.length === 0 ? (
@@ -170,33 +191,50 @@ const Reviews = ({ isbn }) => {
           {reviews.map((review) => (
             <div key={review.reviewId}>
               {isEditing && editedReview.reviewId === review.reviewId ? (
-                <div>
-                  <input
-                    type="text"
-                    value={editedReview.reviewText}
-                    onChange={(e) =>
-                      setEditedReview({
-                        ...editedReview,
-                        reviewText: e.target.value,
-                      })
-                    }
-                  />
-                  <button onClick={() => handleSave(review.reviewId)}>
-                    Save
-                  </button>
-                </div>
+                <Row className="align-items-center">
+                  <Col xs="6">
+                    <Form.Control
+                      type="text"
+                      value={editedReview.reviewText}
+                      onChange={(e) =>
+                        setEditedReview({
+                          ...editedReview,
+                          reviewText: e.target.value,
+                        })
+                      }
+                    />
+                  </Col>
+                  <Col xs="auto">
+                    <Button
+                      variant="success"
+                      onClick={() => handleSave(review.reviewId)}
+                    >
+                      Save
+                    </Button>
+                  </Col>
+                </Row>
               ) : (
                 <div>
                   <p>
-                    <strong>{review.reviewer}: </strong>
-                    {review.reviewText}
-                    <button onClick={() => handleEdit(review)}>Edit</button>
-                    <button
+                    <strong>{review.reviewer}: </strong> {review.reviewText}
+                    <Button
+                      className="mx-2"
                       type="button"
-                      onClick={(e) => deleteReview(e, review.bookISBN, review.reviewId)}
+                      variant="primary"
+                      onClick={() => handleEdit(review)}
+                    >
+                      Edit
+                    </Button>
+                    <Button
+                      className="mx-2"
+                      type="button"
+                      variant="danger"
+                      onClick={(e) =>
+                        deleteReview(e, review.bookISBN, review.reviewId)
+                      }
                     >
                       Delete
-                    </button>
+                    </Button>
                   </p>
                 </div>
               )}
@@ -204,7 +242,7 @@ const Reviews = ({ isbn }) => {
           ))}
         </div>
       )}
-    </div>
+    </>
   );
 };
 

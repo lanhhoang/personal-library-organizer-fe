@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+
+import Button from "react-bootstrap/Button";
+import Col from "react-bootstrap/Col";
+import Container from "react-bootstrap/Container";
+import Form from "react-bootstrap/Form";
+import { LinkContainer } from "react-router-bootstrap";
+import Row from "react-bootstrap/Row";
+import Table from "react-bootstrap/Table";
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -76,30 +83,39 @@ const Books = () => {
   };
 
   return (
-    <div>
+    <Container>
       <h1>Book Management</h1>
 
       {/* Create Book Form */}
       <h2>Create Book</h2>
-      <form onSubmit={createBook}>
-        <label>
-          <strong>ISBN: </strong>
-        </label>
-        <input
-          type="text"
-          value={isbn}
-          onChange={(e) => setIsbn(e.target.value)}
-        />
-        <br />
-        <button type="submit">Create</button>
-      </form>
+      <Form onSubmit={createBook}>
+        <Row className="align-items-center">
+          <Col xs="auto">
+            <Form.Label>
+              <strong>ISBN: </strong>
+            </Form.Label>
+          </Col>
+          <Col xs="auto">
+            <Form.Control
+              type="text"
+              value={isbn}
+              onChange={(e) => setIsbn(e.target.value)}
+            />
+          </Col>
+          <Col xs="auto">
+            <Button type="submit" variant="primary">
+              Create
+            </Button>
+          </Col>
+        </Row>
+      </Form>
 
       {/* List of Books */}
       <h2>Books</h2>
       {books.length === 0 ? (
         <p>Book List is empty</p>
       ) : (
-        <table>
+        <Table>
           <thead>
             <tr>
               <th>ISBN</th>
@@ -117,21 +133,35 @@ const Books = () => {
                 <td>{book.author}</td>
                 <td>{book.publishDate}</td>
                 <td colSpan={3}>
-                  <Link to={`/books/show/${book.isbn}`}>Show</Link>
-                  <Link to={`/books/edit/${book.isbn}`}>Edit</Link>
-                  <button
+                  <LinkContainer
+                    to={`/books/show/${book.isbn}`}
+                    className="mx-2"
+                  >
+                    <Button type="button" variant="info">
+                      Show
+                    </Button>
+                  </LinkContainer>
+                  <LinkContainer
+                    to={`/books/edit/${book.isbn}`}
+                    className="mx-2"
+                  >
+                    <Button>Edit</Button>
+                  </LinkContainer>
+                  <Button
+                    className="mx-2"
                     type="button"
+                    variant="danger"
                     onClick={(e) => deleteBook(e, book.isbn)}
                   >
                     Delete
-                  </button>
+                  </Button>
                 </td>
               </tr>
             ))}
           </tbody>
-        </table>
+        </Table>
       )}
-    </div>
+    </Container>
   );
 };
 
