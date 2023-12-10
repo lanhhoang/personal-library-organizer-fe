@@ -1,6 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 
+
+import Button from "react-bootstrap/Button";
+import Col from "react-bootstrap/Col";
+import Container from "react-bootstrap/Container";
+import Form from "react-bootstrap/Form";
+import Row from "react-bootstrap/Row";
+
 const apiUrl = process.env.REACT_APP_API_URL;
 
 const EditBook = ({ isbn }) => {
@@ -59,51 +66,73 @@ const EditBook = ({ isbn }) => {
   };
 
   return (
-    <div>
+    <Container>
       <h1>Book Management</h1>
 
       {/* Edit Book Form */}
       <h2>Edit Book</h2>
-      <form onSubmit={editBook}>
-        <label>
-          <strong>ISBN: </strong>
-        </label>
-        <input
-          type="type"
-          value={isbn}
-          disabled
-        />
+      <Form onSubmit={editBook}>
+        <Row className="align-items-center">
+          <Col xs="1">
+            <Form.Label>
+              <strong>ISBN: </strong>
+            </Form.Label>
+          </Col>
+          <Col xs="6">
+            <Form.Control type="type" value={isbn} disabled />
+          </Col>
+        </Row>
         <br />
-        <label>
-          <strong>Title: </strong>
-        </label>
-        <input
-          type="text"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
+        <Row className="align-items-center">
+          <Col xs="1">
+            <Form.Label>
+              <strong>Title: </strong>
+            </Form.Label>
+          </Col>
+          <Col xs="6">
+            <Form.Control
+              type="text"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+            />
+          </Col>
+        </Row>
         <br />
-        <label>
-          <strong>Author: </strong>
-        </label>
-        <input
-          type="text"
-          value={author}
-          onChange={(e) => setAuthor(e.target.value)}
-        />
+        <Row className="align-items-center">
+          <Col xs="1">
+            <Form.Label>
+              <strong>Author: </strong>
+            </Form.Label>
+          </Col>
+          <Col xs="6">
+            <Form.Control
+              type="text"
+              value={author}
+              onChange={(e) => setAuthor(e.target.value)}
+            />
+          </Col>
+        </Row>
         <br />
-        <label>
-          <strong>Available: </strong>
-        </label>
-        <input
-          type="text"
-          value={publishDate}
-          onChange={(e) => setPublishDate(e.target.value)}
-        />
+        <Row className="align-items-center">
+          <Col xs="1">
+            <Form.Label>
+              <strong>Available: </strong>
+            </Form.Label>
+          </Col>
+          <Col xs="6">
+            <Form.Control
+              type="text"
+              value={publishDate}
+              onChange={(e) => setPublishDate(e.target.value)}
+            />
+          </Col>
+        </Row>
         <br />
-        <button type="submit">Edit</button>
-      </form>
-    </div>
+        <Button type="submit" variant="success">
+          Edit
+        </Button>
+      </Form>
+    </Container>
   );
 };
 

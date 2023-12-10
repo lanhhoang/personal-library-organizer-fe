@@ -1,12 +1,12 @@
 import React from "react";
 import Books from "../components/Books";
 
-const Home = () => {
-  return <div>
-    <h1>Group 5 - Personal Library Organizer</h1>
+import Container from "react-bootstrap/Container";
 
+const Home = () => {
+  return <Container>
     <Books />
-  </div>;
+  </Container>;
 };
 
 export default Home;

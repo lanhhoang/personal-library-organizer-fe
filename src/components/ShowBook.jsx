@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import Reviews from "./Reviews";
+
+import Container from "react-bootstrap/Container";
+import Button from "react-bootstrap/Button";
+import { LinkContainer } from "react-router-bootstrap";
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -23,7 +26,7 @@ const ShowBook = ({ isbn }) => {
   };
 
   return (
-    <div>
+    <Container>
       <h1>Book Management</h1>
 
       <h2>Book Details</h2>
@@ -46,8 +49,10 @@ const ShowBook = ({ isbn }) => {
 
       <Reviews isbn={isbn} />
 
-      <Link to="/books">Back to Book List</Link>
-    </div>
+      <LinkContainer to="/books">
+        <Button type="button" variant="primary">Back to Book List</Button>
+      </LinkContainer>
+    </Container>
   );
 };
 
